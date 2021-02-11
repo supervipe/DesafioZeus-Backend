@@ -1,0 +1,275 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Desafio Zeus API",
+        "description": "Desafio Zeus Application API usando CRUD",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:8000",
+    "basePath": "/",
+    "tags": [{
+        "name": "Usuário",
+        "description": "API para usuários no sistema"
+    }],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/usuario/": {
+            "post": {
+                "summary": "Cadastro do usuário",
+                "tags": [
+                    "Usuário"
+                ],
+                "description": "Cadastro de um novo usuário no sistema",
+                "parameters": [{
+                    "name": "Usuário",
+                    "in": "body",
+                    "description": "Usuário que queremos cadastrar",
+                    "schema": {
+                        "$ref": "#/definitions/usuarios"
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Novo usuário criado",
+                        "schema": {
+                            "$ref": "#/definitions/usuarios"
+                        }
+                    }
+                }
+            }
+        },
+        "/usuario/login/": {
+            "post": {
+                "summary": "Login do usuário",
+                "tags": [
+                    "Usuário"
+                ],
+                "description": "Login",
+                "parameters": [{
+                    "name": "Usuário",
+                    "in": "body",
+                    "description": "Login do usuário",
+                    "schema": {
+                        "$ref": "#/definitions/login"
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Usuário logado com sucesso",
+                        "schema": {
+                            "$ref": "#/definitions/login"
+                        }
+                    }
+                }
+            }
+        },
+        "/usuario/{id}": {
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "ID do usuário",
+                "type": "integer"
+            }],
+            "put": {
+                "summary": "Mudança de senha do usuário",
+                "tags": [
+                    "Usuário"
+                ],
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "Nova senha do usuário",
+                    "schema": {
+                        "$ref": "#/definitions/updateUsuarios"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Nova senha mudada",
+                        "schema": {
+                            "$ref": "#/definitions/updateUsuarios"
+                        }
+                    }
+                }
+            }
+        },
+        "/racao/": {
+            "post": {
+                "summary": "Compra da ração",
+                "tags": [
+                    "Ração"
+                ],
+                "description": "Login",
+                "parameters": [{
+                    "name": "Ração",
+                    "in": "body",
+                    "description": "Cadastro da compra da ração",
+                    "schema": {
+                        "$ref": "#/definitions/racao"
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Compra da ração cadastrada",
+                        "schema": {
+                            "$ref": "#/definitions/racao"
+                        }
+                    }
+                }
+            }
+        },
+        "/racao/{id}": {
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "ID do usuário",
+                "type": "integer"
+            }],
+            "post": {
+                "summary": "Ração mensal",
+                "tags": [
+                    "Ração"
+                ],
+                "description": "Login",
+                "parameters": [{
+                    "name": "Ração",
+                    "in": "body",
+                    "description": "Valor da ração mensal da data",
+                    "schema": {
+                        "$ref": "#/definitions/racao-data"
+                    }
+                }],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Valor da ração desse mês encontrado",
+                        "schema": {
+                            "$ref": "#/definitions/racao-data"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "usuarios": {
+            "required": [
+                "nome",
+                "email",
+                "senha",
+                "nascimento",
+                "genero",
+                "cachorro"
+            ],
+            "properties": {
+                "nome": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "senha": {
+                    "type": "string"
+                },
+                "nascimento": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "genero": {
+                    "type": "string"
+                },
+                "cachorro": {
+                    "type": "string"
+                }
+
+            }
+        },
+        "updateUsuarios": {
+            "required": [
+                "senha"
+            ],
+            "properties": {
+                "senha": {
+                    "type": "string"
+                }
+            }
+        },
+        "login": {
+            "required": [
+                "email",
+                "senha"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "senha": {
+                    "type": "string"
+                }
+            }
+        },
+        "racao": {
+            "required": [
+                "nome",
+                "quantidade",
+                "preco",
+                "data",
+                "usuario_fk"
+            ],
+            "properties": {
+                "nome": {
+                    "type": "string"
+                },
+                "quantidade": {
+                    "type": "integer"
+                },
+                "preco": {
+                    "type": "integer",
+                    "format": "double"
+                },
+                "data": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "usuario_fk": {
+                    "type": "integer"
+                }
+            }
+        },
+        "racao-data": {
+            "required": [
+                "data"
+            ],
+            "properties": {
+                "data": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
