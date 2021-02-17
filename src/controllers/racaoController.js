@@ -5,7 +5,7 @@ exports.racaoMensal = function(req, res) {
     const { id } = req.params
     const data = req.body
 
-    let sql = `SELECT SUM(preco*quantidade) FROM racao WHERE usuario_fk = "${id}" AND (SELECT EXTRACT(YEAR_MONTH FROM data)) = "${data.data}"`;
+    let sql = `SELECT SUM(preco*quantidade) AS somaPQ FROM racao WHERE usuario_fk = "${id}" AND (SELECT EXTRACT(YEAR_MONTH FROM data)) = "${data.data}"`;
     let query = db.query(sql, (err, results) => {
         if (err) throw err;
         console.log(results);
