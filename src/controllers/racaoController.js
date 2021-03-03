@@ -1,5 +1,17 @@
 var db = require('../../DB.js')
 
+exports.historico = function(req, res) {
+
+    const { id } = req.params
+
+    let sql = `SELECT * FROM racao WHERE usuario_fk = "${id}" `;
+    let query = db.query(sql, (err, results) => {
+        if (err) throw err;
+        console.log(results);
+        res.send(results);
+    });
+}
+
 exports.racaoMensal = function(req, res) {
 
     const { id } = req.params

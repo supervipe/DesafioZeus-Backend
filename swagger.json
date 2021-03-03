@@ -2,8 +2,8 @@
     "swagger": "2.0",
     "info": {
         "version": "1.0.0",
-        "title": "Desafio Zeus API",
-        "description": "Desafio Zeus Application API usando CRUD",
+        "title": "Controle Pet - API",
+        "description": "Controle Pet REST API usando CRUD",
         "license": {
             "name": "MIT",
             "url": "https://opensource.org/licenses/MIT"
@@ -114,17 +114,17 @@
         },
         "/racao/": {
             "post": {
-                "summary": "Compra da ração",
+                "summary": "Compra da produto",
                 "tags": [
-                    "Ração"
+                    "Produto"
                 ],
-                "description": "Login",
+                "description": "Compra da produto",
                 "parameters": [{
                     "name": "Ração",
                     "in": "body",
-                    "description": "Cadastro da compra da ração",
+                    "description": "Cadastro da compra",
                     "schema": {
-                        "$ref": "#/definitions/racao"
+                        "$ref": "#/definitions/produto"
                     }
                 }],
                 "produces": [
@@ -134,7 +134,7 @@
                     "201": {
                         "description": "Compra da ração cadastrada",
                         "schema": {
-                            "$ref": "#/definitions/racao"
+                            "$ref": "#/definitions/produto"
                         }
                     }
                 }
@@ -149,17 +149,17 @@
                 "type": "integer"
             }],
             "post": {
-                "summary": "Ração mensal",
+                "summary": "Gasto mensal",
                 "tags": [
-                    "Ração"
+                    "Produto"
                 ],
-                "description": "Login",
+                "description": "Gasto mensal",
                 "parameters": [{
-                    "name": "Ração",
+                    "name": "Produto",
                     "in": "body",
-                    "description": "Valor da ração mensal da data",
+                    "description": "Valor do gasto mensal da data",
                     "schema": {
-                        "$ref": "#/definitions/racao-data"
+                        "$ref": "#/definitions/produto-data"
                     }
                 }],
                 "produces": [
@@ -167,10 +167,34 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "Valor da ração desse mês encontrado",
+                        "description": "Valor do gasto desse mês encontrado",
                         "schema": {
-                            "$ref": "#/definitions/racao-data"
+                            "$ref": "#/definitions/produto-data"
                         }
+                    }
+                }
+            }
+        },
+        "/racao/historico/{id}": {
+            "parameters": [{
+                "name": "id",
+                "in": "path",
+                "required": true,
+                "description": "ID do usuário",
+                "type": "integer"
+            }],
+            "get": {
+                "summary": "Gastos histórico",
+                "tags": [
+                    "Produto"
+                ],
+                "description": "Histórico dos gastos cadastrados",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Todas os cadastros de compras"
                     }
                 }
             }
@@ -233,7 +257,7 @@
                 }
             }
         },
-        "racao": {
+        "produto": {
             "required": [
                 "nome",
                 "quantidade",
@@ -261,7 +285,7 @@
                 }
             }
         },
-        "racao-data": {
+        "produto-data": {
             "required": [
                 "data"
             ],
